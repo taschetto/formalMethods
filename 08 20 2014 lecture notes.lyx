@@ -1,0 +1,242 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language brazilian
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Description
+Tipos
+\begin_inset space ~
+\end_inset
+
+de
+\begin_inset space ~
+\end_inset
+
+dados
+\begin_inset space ~
+\end_inset
+
+indutivos Definições de tipos finitas que permitem gerar infinitos dados.
+\end_layout
+
+\begin_layout Description
+Funções
+\begin_inset space ~
+\end_inset
+
+recursivas Funções definidas sobre tipos de dados indutivos.
+\end_layout
+
+\begin_layout Description
+Indução Provar uma propriedade sobre os dados.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+numPar:T_{\lambda}(X) & \longrightarrow & \mathbb{N},\, onde\\
+numPar(v) & = & 0,v\in X\\
+numPar(\lambda v.M) & = & numPar(M)\\
+numPar((M\, N)) & = & 2+numPar(M)+numPar(N)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+numPar(((\lambda x.x\, v)\,\lambda x.y)) & = & 2+numPar((\lambda x.x\, v))+numPar(\lambda x.y)\\
+ & = & 2+(2+numPar(\lambda x.x)+numPar(v))+numPar(y)\\
+ & = & 2+(2+numPar(x)+0)+0\\
+ & = & 2+(2+0+0)+0\\
+ & = & 4
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Definir uma função primitiva recursiva que, dada uma expressão 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, retorne o conjunto de todas as variáveis naquela expressão.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+setVar(((\lambda x.x\, v)\,\lambda x.y)) & = & \left\{ \{x\},\{v\},\{y\}\right\} \\
+setVar(\lambda x.y\, x) & = & \{x,y\}
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+setVar:T_{\lambda}(X) & \longrightarrow & \mathcal{P}(X),\, onde\\
+setVar(v) & = & \{v\},v\in X\\
+setVar(\lambda v.M) & = & \{v\}\cup setVar(M)\\
+setVar((M\, N)) & = & setVar(M)\cup setVar(N)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Definir uma função primitiva recursiva que, dada uma expressão 
+\begin_inset Formula $\lambda$
+\end_inset
+
+, retorna o conjunto de variáveis livres da expressão.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+FV:T_{\lambda}(X) & \longrightarrow & \mathcal{P}(X),\, onde\\
+FV(v) & = & \{v\},v\in X\\
+FV(\lambda v.M) & = & FV(M)\setminus\{v\}\\
+FV((M\, N)) & = & FV(M)\cup FV(N)
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{eqnarray*}
+FV((\lambda x.x\,\lambda x.x)) & = & FV(\lambda x.x)\cup FV(\lambda x.x)\\
+ & = & FV(x)\setminus\{x\}\cup FV(x)\setminus\{x\}\\
+ & = & \{x\}\setminus\{x\}\cup\{x\}\setminus\{x\}\\
+ & = & \emptyset\cup\emptyset\\
+ & = & \emptyset
+\end{eqnarray*}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Definir um tipo indutivo para lógica proposicional.
+ Esta lógica deve considerar símbolos para o valores verdadeiro e falso,
+ para variáveis e operadores para negação e conjunção.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Prop(X)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\frac{}{\top\in Prop(X)}[top]\,\frac{}{\perp\in Prop(X)}[bot]\,\frac{v\in X}{v\in Prop(X)}[var]\,\frac{A\in Prop(X)}{(\neg A)\in Prop(X)}[negation]\,\frac{\begin{array}{cc}
+A\in Prop(X) & B\in Prop(X)\end{array}}{(A\wedge B)\in Prop(X)}[conjunction]
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Definir uma função recursiva primitiva que, ao receber uma fórmula proposicional
+, retorne um conjunto de todas sub-fórmulas.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+SF(\neg(p\wedge q))=\left\{ p,q,p\wedge q,\neg(p\wedge q)\right\} 
+\]
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
