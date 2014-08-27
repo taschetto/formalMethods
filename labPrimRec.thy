@@ -85,4 +85,19 @@ value "depth (br (1::nat) leaf leaf)"
 value "depth (br (1::int) (br 2 (br 4 (br 5 leaf leaf) leaf) leaf) (br 3 leaf (br 4 (br 5 leaf leaf) leaf)))"
 value "depth (br (1::int) (br 2 (br 4 (br 5 (br 6 leaf leaf) leaf) leaf) leaf) (br 3 leaf (br 4 (br 5 leaf leaf) leaf)))"
 
+datatype Bool = Const bool | Var nat | Neg Bool | And Bool Bool | Or Bool Bool | Impl Bool Bool
+
+term "Var 3"
+term "Const True"
+term "And (Var 3) (Neg (And (Const True) (Const False)))"
+
+primrec "eval"::"Bool => (nat => bool) => bool" where
+  "eval (Const b) env = b" |
+  "eval (Var n) env = env n" |
+  "eval (Neg b) env = (\<not> eval b env)" |
+  "eval (And b c) env = (eval b env \<and> eval c env)" |
+  "eval (Or b c) env = (eval b env \<or> eval c env)"
+
+value "eval (And (Neg (Var 1)) (Var 2)) ((%x::nat. False)(2:=True))"
+
 end
