@@ -1,0 +1,54 @@
+                              xo, yo
+
+                                P(xo), P(yo)              I
+                                ...
+                                P(xo @ yo)
+
+                              P(xo) ^ P(yo) --> P(xo @ yo)    --> I
+
+\forall x:N. P(x)           \forall x:Exp. \forall y:Exp. (P(x) ^ P(y) --> P(x @ y))
+-------------------------------------------------------------------------------------
+  \forall x:Exp. P(x)
+
+========================================
+
+P(l) === \forall l2:List(A). revapp l l2 = cat (rev l) l2
+
+Prova case base: P([])
+
+  P([]) = all l2. revapp [] l2 = cat (rev []) l2
+
+  Seja k uma lista arbitrária. Então é suficiente mostrar que:
+
+  revapp [] k = cat (rev []) k
+
+  Agora veja que:
+
+    revapp [] k = k               (by revapp01)
+                = cat [] k        (by cat01)
+                = cat (rev [] k)  (by rev01)
+
+    q.e.d
+
+Prova caso indutivo: P(l0) -> P(e0::l0)
+    
+  Sejam e0:tau e l0:List(tau) arbitrários, assumimos como HI:
+  
+    P(l0) = all l2. revapp l0 l2 = cat (rev l0) l2
+
+  Então, temos que mostrar que:
+
+    P(e0::l0) = all l2. revapp (e0::l0) l2 = cat (rev (e0::l0)) l2 
+
+  Seja k uma lista arbitrária, então é suficiente provar que:
+
+    revapp (e0::l0) k = cat (rev (e0::l0)) k
+
+  Agora, veja que:
+
+    revapp (e0::l0) k = revapp l0 (e0::k)       (by revapp02)
+                      = cat (rev l0) (e0::k)    (by HI, allE, [l2:=e0::k])
+                      = cat (rev l0) (e0::cat [] k)     (by cat01)
+                      = cat (rev l0) (cat (e0::[]) k)   (by cat02)
+                      = cat (cat (rev l0) (e0::[]) k    (by Th01)
+                      = cat (rev (e0::l0)) k            (by rev02)
