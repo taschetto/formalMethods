@@ -55,4 +55,19 @@ primrec exec :: "'a Instr list \<Rightarrow> (nat \<Rightarrow> 'a) \<Rightarrow
       IConst v \<Rightarrow> exec is env (v # vs)
     | ILoad x  \<Rightarrow> exec is env ((env x)#vs) 
     | IApp f   \<Rightarrow> exec is env ((f (hd vs) (hd (tl vs)))#(tl(tl vs))))"
-end
+
+(*
+  Devo provar que o compilador funciona, ou seja:
+  exec (compile e) env [] = [eval e env]
+*)
+
+theorem "\<forall>s. exec (compile exp) env s = (eval exp env) # s"
+proof (induct exp)
+  fix v
+  show "\<forall>s. exec (compile (Const v)) env s = (eval (Const v) env) # s" by simp
+next
+  fix x
+  show "\<forall>s. exec (compile (Var x)) env s = (eval (Var x) env) # s" by simp
+next
+  fix f e1 e2
+  
