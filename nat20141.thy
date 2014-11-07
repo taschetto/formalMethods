@@ -55,5 +55,49 @@
         q. e. d.
 
 MOSTRAR QUE O CAT É ASSOCIATIVO.
-     
+
+        primrec cat::'a List \<Longrightarrow> 'a List \<Longrightarrow> 'a List
+          where
+            cat01: cat Empty l = l |
+            cat02: cat (cons h t) l = cons h (cat t l)
+  
+            P = \<triangleq> \<forall>l1. \<forall>l2. \<forall>l3. cat l1 (cat l2 l3) = cat (cat l1 l2) l3
+
+            P(l) \<triangleq> \<forall>l2. \<forall>l3. cat l (cat l2 l3) = cat (cat l l2) l3
+
+  2.1) Prova caso base: P Empty
+
+    Temos que provar que:
+      \<forall>l2. \<forall>l3. cat Empty (cat l2 l3) = cat (cat Empty l2) l3
+
+    Sejam k, l duas listas arbitrárias. Então, é suficiente mostrar que:
+
+      cat Empty (cat k l) = cat (cat Empty k) l
+
+    Agora veja que:
+      cat Empty (cat k l)
+        = cat k l                 (por cat01, l := cat k l)
+        = cons (cat empty k) l    (por cat01, l := k)
+
+        q. e. d.
+
+  2.2) Prova Caso Indutivo: P(l0) \<longrightarrow> P(cons e0 l0)
+
+    Sejam e0 e l0 elementos arbitrários. Assumindo como hipótese de indução:
+      P(l0) \<triangleq> \<forall>l2. \<forall>l3. cat l0 (cat l2 l3) = cat (cat l0 l2) l3       (HI)
+
+    Temos que mostrar que:
+      \<forall>l2. \<forall>l3. cat (cons e0 l0) (cat l2 l3) = cat (cat (cons e0 l0) l2) l3
+
+    Sejam k e p duas listas arbitrários. Logo, é suficiente mostrar que:
+
+      cat (cons e0 l0) (cat k p) = cat (cat (cons e0 l0) k) p
+
+    Agora veja que:
+
+      cat (cons e0 l0) (cat k p)
+        = cons e0 (cat l0 (cat k p))    (by cat02, l := (cat k p)
+
+....
+        q. e. d.
 *)
